@@ -2,15 +2,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import express from 'express';
-import serverless from 'serverless-http';
 import { AppModule } from '../src/app.module';
 
 const expressApp = express();
-let cachedHandler: ReturnType<typeof serverless>;
+let isBootstrapped = false;
 
 async function bootstrap() {
-  if (cachedHandler) {
-    return cachedHandler;
+  if (isBootstrapped) {
+    return;
   }
 
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
@@ -27,12 +26,10 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api');
   await app.init();
-
-  cachedHandler = serverless(expressApp);
-  return cachedHandler;
+  isBootstrapped = true;
 }
 
 export default async function handler(req: express.Request, res: express.Response) {
-  const serverlessHandler = await bootstrap();
-  return serverlessHandler(req, res);
+  await bootstrap();
+  return expressApp(req, res);
 }
