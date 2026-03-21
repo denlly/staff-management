@@ -1,0 +1,41 @@
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+.turbo/
+.cache/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Env files (keep examples)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Backend SQLite runtime files
+backend/data/*.sqlite
+backend/data/*.sqlite-journal
+backend/data/*.db
+backend/data/*.db-journal
+
+# Vercel
+.vercel/
+**/node_modules
+**/dist
