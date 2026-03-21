@@ -38,7 +38,7 @@ npm i -g vercel
    - `JWT_SECRET`：强随机字符串（必填）
    - `JWT_EXPIRES_IN`：例如 `1d`
    - `FRONTEND_ORIGIN`：前端线上域名（例如 `https://your-web.vercel.app`）
-   - `DB_PATH`：`data/staff_management.sqlite`
+   - `DB_PATH`：`/tmp/staff_management.sqlite`
 6. 点击部署，等待完成  
 
 部署成功后会拿到后端地址，例如：

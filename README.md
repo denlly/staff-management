@@ -85,7 +85,7 @@ PORT=3000
 FRONTEND_ORIGIN=http://localhost:5173
 JWT_SECRET=replace-with-strong-secret
 JWT_EXPIRES_IN=1d
-DB_PATH=data/staff_management.sqlite
+DB_PATH=./db/staff_management.sqlite
 ```
 
 ### web/.env
@@ -138,7 +138,7 @@ npm run build
    - `JWT_SECRET`
    - `JWT_EXPIRES_IN`
    - `FRONTEND_ORIGIN`（前端线上域名）
-   - `DB_PATH`（建议 `data/staff_management.sqlite`）
+   - `DB_PATH`（建议 `/tmp/staff_management.sqlite`）
 4. 首次部署后得到后端域名，例如：`https://your-api.vercel.app`
 
 ### 7.2 部署前端（React）
