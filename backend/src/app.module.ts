@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { mkdirSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { basename, dirname } from 'node:path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RecordsModule } from './records/records.module';
@@ -15,9 +15,16 @@ function resolveDbPath(configService: ConfigService) {
 
   // Vercel serverless filesystem is writable only under /tmp.
   if (process.env.VERCEL) {
-    if (!configuredPath || configuredPath.startsWith('data/')) {
+    if (!configuredPath) {
       return '/tmp/staff_management.sqlite';
     }
+
+    // Force any custom DB path into /tmp to avoid read-only filesystem failures.
+    if (!configuredPath.startsWith('/tmp/')) {
+      const fileName = basename(configuredPath) || 'staff_management.sqlite';
+      return `/tmp/${fileName}`;
+    }
+
     return configuredPath;
   }
 
