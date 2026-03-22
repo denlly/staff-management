@@ -35,6 +35,9 @@ export class AuthService {
       resetPasswordToken: null,
       resetPasswordExpiresAt: null,
     });
+    if (!user) {
+      throw new BadRequestException('注册失败，请稍后再试');
+    }
 
     return this.buildAuthResponse(user.id, user.email, user.name);
   }
